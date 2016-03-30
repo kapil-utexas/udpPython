@@ -3,14 +3,15 @@ import subprocess
 import sys
 
 mycmd="socat"
-myarg=" - UDP-DATAGRAM:10.145.70.36:11111,broadcast,sp=s11111"
-
-for num in range(0,10):
-    echo = subprocess.Popen(('echo linux_'+str(num)).split(), stdout=subprocess.PIPE)
-    socat = subprocess.Popen((mycmd+myarg).split(), stdin=echo.stdout,stdout=subprocess.PIPE)
-    echo.stdout.close()
-    output = socat.communicate()[0]
-    echo.wait()
+myarg=" - UDP-DATAGRAM:10.145.127.21:11111,broadcast,sp=s11111"
+cmd2 = "python -m sbp.client.examples.simple"
+#for num in range(0,100):
+echo = subprocess.Popen((cmd2).split(), stdout=subprocess.PIPE)		
+    #echo = subprocess.Popen(('echo linux_'+str(num)).split(), stdout=subprocess.PIPE)
+socat = subprocess.Popen((mycmd+myarg).split(), stdin=echo.stdout,stdout=subprocess.PIPE)
+echo.stdout.close()
+output = socat.communicate()[0]
+echo.wait()
 
 #call(mycmd + myarg,shell = True)
 
